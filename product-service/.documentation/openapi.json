@@ -1,0 +1,73 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "AWS product-service API",
+    "description": "product-service (Viachaslau Tsimoshchanka)",
+    "version": "1.0.0"
+  },
+  "components": {
+    "schemas": {
+      "productId": {
+        "type": "string",
+        "pattern": "^[-a-z0-9_]+$"
+      }
+    }
+  },
+  "paths": {
+    "/products/{productId}": {
+      "get": {
+        "summary": "products/{productId}",
+        "description": "Returns a product by its ID",
+        "operationId": "product-service-dev-getProductsById",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "The product ID",
+            "required": true,
+            "example": "7567ec4b-b10c-48c5-9345-fc73c48a80a3",
+            "schema": {
+              "$ref": "#/components/schemas/productId"
+            }
+          }
+        ],
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "A product object",
+            "content": {}
+          },
+          "404": {
+            "description": "An error message no product found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "summary": "products",
+        "description": "Returns a products list",
+        "operationId": "product-service-dev-getProductsList",
+        "parameters": [],
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "A procucts array",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://0ove44vgh5.execute-api.eu-central-1.amazonaws.com/dev",
+      "description": "dev"
+    },
+    {
+      "url": "https://0ove44vgh5.execute-api.eu-central-1.amazonaws.com/",
+      "description": "prod"
+    }
+  ]
+}
