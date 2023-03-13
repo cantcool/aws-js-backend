@@ -18,11 +18,14 @@
   "homepage": "https://github.com/cantcool/aws-js-backend#readme",
   "type": "module",
   "devDependencies": {
+    "serverless-dotenv-plugin": "^4.0.2",
     "typescript": "^4.9.5"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.284.0",
     "@aws-sdk/util-dynamodb": "^3.284.0",
+    "cross-env": "^7.0.3",
+    "csv-parser": "^3.0.0",
     "dotenv": "^16.0.3"
   }
 }
