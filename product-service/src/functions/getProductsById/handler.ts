@@ -1,39 +1,28 @@
-import { getProductItem } from "@db/ddb_getProductItem.js";
 import {
   ValidatedEventAPIGatewayProxyEvent,
   formatJSONResponse,
 } from "@libs/api-gateway";
 import { middyfy } from "@libs/lambda";
+import { products } from "@mocks/products";
 import { productSchema } from "@schemas/index";
 
 const getProductsById: ValidatedEventAPIGatewayProxyEvent<
   typeof productSchema
 > = async (event) => {
-  console.log("getProductsById", JSON.stringify(event));
-  try {
-    const { productId } = event.pathParameters;
-    const product = await getProductItem(productId);
-    console.log("product", product);
-    if (!product) {
-      return formatJSONResponse(
-        {
-          message: "Product not found",
-          productId,
-        },
-        404
-      );
-    }
+  const { productId } = event.pathParameters;
+  const product = products.find((item) => item.id === productId);
 
-    return formatJSONResponse(product);
-  } catch (err) {
-    console.log("Failure", err.message);
+  if (!product) {
     return formatJSONResponse(
       {
-        message: "An error occured",
+        message: "Product not found",
+        productId,
       },
-      500
+      404
     );
   }
+
+  return formatJSONResponse(product);
 };
 
 export const main = middyfy(getProductsById);

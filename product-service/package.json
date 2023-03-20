@@ -5,16 +5,14 @@
   "main": "serverless.ts",
   "scripts": {
     "deploy": "sls deploy",
-    "docs:generate": "serverless openapi generate -o ./.documentation/openapi.json -a 3.0.3 -p ./.documentation/postman.json",
-    "remove": "sls remove"
+    "docs:generate": "serverless openapi generate -o ./.documentation/openapi.json -a 3.0.3 -p ./.documentation/postman.json"
   },
   "engines": {
     "node": ">=14.15.0"
   },
   "dependencies": {
     "@middy/core": "^3.4.0",
-    "@middy/http-json-body-parser": "^3.4.0",
-    "cross-env": "^7.0.3"
+    "@middy/http-json-body-parser": "^3.4.0"
   },
   "devDependencies": {
     "@serverless/typescript": "^3.0.0",

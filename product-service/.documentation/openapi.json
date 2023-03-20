@@ -14,46 +14,6 @@
     }
   },
   "paths": {
-    "/products": {
-      "post": {
-        "summary": "products",
-        "description": "Create a new product",
-        "operationId": "product-service-dev-createProduct",
-        "parameters": [],
-        "tags": [],
-        "requestBody": {
-          "required": false,
-          "content": {}
-        },
-        "responses": {
-          "200": {
-            "description": "A product is created",
-            "content": {}
-          },
-          "400": {
-            "description": "A validation message",
-            "content": {}
-          },
-          "500": {
-            "description": "An error message",
-            "content": {}
-          }
-        }
-      },
-      "get": {
-        "summary": "products",
-        "description": "Returns a products list",
-        "operationId": "product-service-dev-getProductsList",
-        "parameters": [],
-        "tags": [],
-        "responses": {
-          "200": {
-            "description": "A procucts array",
-            "content": {}
-          }
-        }
-      }
-    },
     "/products/{productId}": {
       "get": {
         "summary": "products/{productId}",
@@ -79,6 +39,21 @@
           },
           "404": {
             "description": "An error message no product found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "summary": "products",
+        "description": "Returns a products list",
+        "operationId": "product-service-dev-getProductsList",
+        "parameters": [],
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "A procucts array",
             "content": {}
           }
         }

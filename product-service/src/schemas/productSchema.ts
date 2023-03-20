@@ -4,8 +4,8 @@ export default {
     id: { type: "string" },
     title: { type: "string" },
     description: { type: "string" },
+    img: { type: "string" },
     price: { type: "number" },
-    count: { type: "number" },
   },
-  required: ["id", "title"],
+  required: ["id", "title", "description", "price", "img"],
 } as const;

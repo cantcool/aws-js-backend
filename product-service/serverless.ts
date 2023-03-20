@@ -17,24 +17,8 @@ const serverlessConfiguration: AWS = {
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
       NODE_OPTIONS: "--enable-source-maps --stack-trace-limit=1000",
-      DB_AWS_REGION: "eu-central-1",
-      DB_PRODUCTS_NAME: "products-db",
-      DB_STOCKS_NAME: "stocks-db",
     },
-    iamRoleStatements: [
-      {
-        Effect: "Allow",
-        Action: [
-          "dynamodb:Query",
-          "dynamodb:Scan",
-          "dynamodb:GetItem",
-          "dynamodb:PutItem",
-        ],
-        Resource: "*",
-      },
-    ],
   },
-
   package: { individually: true },
   custom: {
     esbuild: {
