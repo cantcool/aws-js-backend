@@ -21,11 +21,27 @@ const serverlessConfiguration: AWS = {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
       NODE_OPTIONS: "--enable-source-maps --stack-trace-limit=1000",
     },
+    httpApi: {
+      cors: {
+        allowedOrigins: [
+          "http://d3ms30uko8tp9j.cloudfront.net",
+          "https://d3ms30uko8tp9j.cloudfront.net",
+        ],
+        allowedMethods: ["GET", "POST"],
+        allowCredentials: true,
+        allowedHeaders: ["Content-Type", "Authorization"],
+      },
+    },
     iamRoleStatements: [
       {
         Effect: "Allow",
         Action: "s3:*",
         Resource: `arn:aws:s3:::${process.env.S3_BUCKET_NAME}/*`,
+      },
+      {
+        Effect: "Allow",
+        Action: ["sqs:*"],
+        Resource: "*",
       },
     ],
   },
