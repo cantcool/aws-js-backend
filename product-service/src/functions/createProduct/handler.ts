@@ -1,4 +1,4 @@
-import { putProduct } from "@db/ddb_putProduct.js";
+import { putProduct } from "@db/ddb_putProduct";
 import {
   ValidatedEventAPIGatewayProxyEvent,
   formatJSONResponse,

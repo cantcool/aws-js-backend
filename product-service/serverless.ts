@@ -1,6 +1,13 @@
 import type { AWS } from "@serverless/typescript";
 
-import * as FCs from "@functions/index";
+import { catalogItemsQueue } from "./src/resources/sqs";
+import { createProductTopic } from "./src/resources/sns";
+import {
+  catalogBatchProcess,
+  createProduct,
+  getProductsById,
+  getProductsList,
+} from "@functions/index";
 
 const serverlessConfiguration: AWS = {
   service: "product-service",
@@ -31,6 +38,11 @@ const serverlessConfiguration: AWS = {
           "dynamodb:PutItem",
         ],
         Resource: "*",
+      },
+      {
+        Effect: "Allow",
+        Action: ["sns:Publish"],
+        Resource: [{ "Fn::GetAtt": ["createProductTopic", "TopicArn"] }],
       },
     ],
   },
@@ -64,7 +76,18 @@ const serverlessConfiguration: AWS = {
       models: [],
     },
   },
-  functions: FCs,
+  functions: {
+    catalogBatchProcess,
+    createProduct,
+    getProductsById,
+    getProductsList,
+  },
+  resources: {
+    Resources: {
+      ...catalogItemsQueue,
+      ...createProductTopic,
+    },
+  },
 };
 
 module.exports = serverlessConfiguration;

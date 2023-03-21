@@ -4,11 +4,36 @@ import {
   DeleteObjectCommand,
   GetObjectCommand,
 } from "@aws-sdk/client-s3";
+import { SendMessageCommand, SQSClient } from "@aws-sdk/client-sqs";
 import * as dotenv from "dotenv";
 import csv from "csv-parser";
 import { FOLDER_UPLOADED, FOLDER_PARSED } from "./constants";
 
 dotenv.config();
+
+const sqsClient = new SQSClient({});
+
+export const sendToQueue = async (record: any) => {
+  console.log("sendToQueue input:", record);
+  const productItem = {
+    id: record.id,
+    title: record.title,
+    description: record.description,
+    price: parseFloat(record.price),
+    count: parseInt(record.count) || 0,
+  };
+  try {
+    const sendResult = await sqsClient.send(
+      new SendMessageCommand({
+        QueueUrl: process.env.SQS_URL,
+        MessageBody: JSON.stringify(productItem),
+      })
+    );
+    console.log("sendToQueue result:", sendResult);
+  } catch (e) {
+    console.error(e);
+  }
+};
 
 const importFileParser = async (event) => {
   console.log("importFileParser", JSON.stringify(event));
@@ -53,7 +78,7 @@ const importFileParser = async (event) => {
       readableStream
         .pipe(csv())
         .on("data", function (data) {
-          console.log("Data parsed: ", data);
+          sendToQueue(data);
         })
         .on("end", function () {
           resolve("CSV parse process finished");
