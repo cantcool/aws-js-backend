@@ -1,4 +1,6 @@
 import { handlerPath } from "@libs/handler-resolver";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 export default {
   handler: `${handlerPath(__dirname)}/handler.main`,
@@ -8,6 +10,10 @@ export default {
         method: "get",
         path: "import",
         cors: true,
+        authorizer: {
+          arn: process.env.AUTH_LAMBDA_ARN,
+          type: "token",
+        },
       },
     },
   ],
